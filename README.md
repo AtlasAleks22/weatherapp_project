@@ -3,4 +3,4 @@ Short Angular project generated with Angular CLI version 16.1.0 consisting in a 
 This Angular project is the starting point of implementing DevOps solutions.
 
 
-https://rapidapi.com/KirylBokiy/api/openweather43/ -> Api for weather host ..
+https://rapidapi.com/KirylBokiy/api/openweather43/ -> Api for weather host 
