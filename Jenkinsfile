@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Print Message') {
             steps {
-                echo 'Webhook triggered the pipeline successfully!'
+                echo 'Webhook triggered the pipeline successfully!!'
             }
         }
     }
