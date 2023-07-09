@@ -4,7 +4,7 @@ pipeline {
     environment {
         GITHUB_CREDENTIALS = credentials('573fb6c8-ca66-478c-ae0c-bc561d8c0be1')
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'jenkins-xrapidApi', variable: 'API_KEY')]) {
-                        sh "sed -i 's/XRapidAPIKeyHeaderValue: .*$/XRapidAPIKeyHeaderValue: \"${API_KEY}\"/' src/app/environments/environment.ts"
+                        sh "sed -i 's/XRapidAPIKeyHeaderValue: .*$/XRapidAPIKeyHeaderValue: \"${API_KEY}\"/' weatherapp_proj/src/app/environments/environment.ts"
                     }
                 }
             }
