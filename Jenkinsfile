@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        GITHUB_CREDENTIALS = credentials('573fb6c8-ca66-478c-ae0c-bc561d8c0be1')
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,15 +11,7 @@ pipeline {
             }
         }
 
-        stage('Build and Install Dependencies') {
-            steps {
-                sh "pwd"
-                sh "docker --version"
-                sh "cd weatherapp_proj"
-                sh 'npm install'
-            }
-        }
-
+        
         stage('Update Token in environments.ts') {
             steps {
                 script {
@@ -34,16 +22,21 @@ pipeline {
             }
         }
 
+        stage('Image build') {
+            steps {
+                #build-uim imaginea
+            }
+        }
+
         stage('Run Smoke Test') {
             steps {
                 sh "curl -s https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Bucharest"
             }
         }
 
-        stage('Build and Deploy') {
+        stage('Publish') {
             steps {
-                sh 'npm run build'
-                sh 'npm run deploy'
+                push in docker registry - dockerhub
             }
         }
     }

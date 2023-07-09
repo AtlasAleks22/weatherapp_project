@@ -25,11 +25,12 @@ COPY package*.json ./
 RUN npm cache clean --force \
     && rm -rf node_modules \
     && npm install
-# Copy the rest of the Angular project to the working directory
-COPY . .
+# Extract code from the GitHub repository
+RUN apt-get install -y git \
+    && git clone https://github.com/AtlasAleks22/weatherapp_project.git ./
 
 # Expose the port used by the Angular application (default is 4200)
-EXPOSE 9000
+EXPOSE 4200
 
 # Define the command to start the Angular application
 CMD [ "ng", "serve", "--host", "0.0.0.0" ]
