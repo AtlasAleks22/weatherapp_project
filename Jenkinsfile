@@ -17,7 +17,7 @@ pipeline {
         stage('Update Token in environments.ts') {
             steps {
                 withCredentials([string(credentialsId: 'jenkins_xrapidApi', variable: 'API_KEY')]) {
-                    sh "sed -i 's/XRapidAPIKeyHeaderValue: .*$/XRapidAPIKeyHeaderValue: \"${API_KEY}\"/' src/app/environments/environment.ts"
+                    sh "sed -i 's/XRapidAPIKeyHeaderValue: .*\$/XRapidAPIKeyHeaderValue: \"\${API_KEY}\"/' weatherapp_proj/src/app/environments/environment.ts"
                 }
             }
         }
