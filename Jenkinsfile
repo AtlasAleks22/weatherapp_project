@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/AtlasAleks22/weatherapp_project.git'
+                git credentialsId: '573fb6c8-ca66-478c-ae0c-bc561d8c0be1', url: 'https://github.com/AtlasAleks22/weatherapp_project.git'
+
             }
         }
 
@@ -16,8 +17,10 @@ pipeline {
 
         stage('Update Token in environments.ts') {
             steps {
-                withCredentials([string(credentialsId: 'jenkins_xrapidApi', variable: 'API_KEY')]) {
-                    sh "sed -i 's/XRapidAPIKeyHeaderValue: .*\$/XRapidAPIKeyHeaderValue: \"\${API_KEY}\"/' weatherapp_proj/src/app/environments/environment.ts"
+                script {
+                    withCredentials([string(credentialsId: 'jenkins-xrapidApi', variable: 'API_KEY')]) {
+                        sh "sed -i 's/XRapidAPIKeyHeaderValue: .*$/XRapidAPIKeyHeaderValue: \"${API_KEY}\"/' src/app/environments/environment.ts"
+                    }
                 }
             }
         }
