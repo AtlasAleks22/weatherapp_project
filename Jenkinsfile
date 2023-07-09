@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'jenkins-xrapidApi', variable: 'API_KEY')]) {
-                        sh "sed -i 's/XRapidAPIKeyHeaderValue: .*/XRapidAPIKeyHeaderValue: \"\\\\\\$${API_KEY}\"/' weatherapp_proj/src/app/environments/environment.ts"
+                        sh "sed -i \"s/api_key_placeholder/$jenkins_xrapidApi/g\" weatherapp_proj/src/app/environments/environment.ts"
                     }
                 }
             }
