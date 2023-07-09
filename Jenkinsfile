@@ -18,6 +18,7 @@ pipeline {
         stage('Build and Install Dependencies') {
             steps {
                 sh "pwd"
+                sh "docker --version"
                 sh "cd weatherapp_proj"
                 sh 'npm install'
             }
