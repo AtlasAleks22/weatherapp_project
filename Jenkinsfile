@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
+    environment {
+        GITHUB_CREDENTIALS = credentials('573fb6c8-ca66-478c-ae0c-bc561d8c0be1')
+    }
+    
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: '573fb6c8-ca66-478c-ae0c-bc561d8c0be1', url: 'https://github.com/AtlasAleks22/weatherapp_project.git'
+                git credentialsId: env.GITHUB_CREDENTIALS, url: 'https://github.com/AtlasAleks22/weatherapp_project.git'
 
             }
         }
