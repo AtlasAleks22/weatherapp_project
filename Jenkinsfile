@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: env.GITHUB_CREDENTIALS, url: 'https://github.com/AtlasAleks22/weatherapp_project.git'
+                checkout scmGit(branches: [[name: '*/main']],
+                 extensions: [], 
+                 userRemoteConfigs: [[credentialsId: 'github_auth_id', url: 'https://github.com/AtlasAleks22/weatherapp_project.git']])
 
             }
         }
