@@ -9,7 +9,7 @@ export const environment = {
     XRapidAPIHostHeaderName: 'X-RapidAPI-Host',
     XRapidAPIHostHeaderValue: 'openweather43.p.rapidapi.com',
     XRapidAPIKeyHeaderName: 'X-RapidAPI-Key',
-    XRapidAPIKeyHeaderValue: ''
+    XRapidAPIKeyHeaderValue: '$jenkins_xrapidApi'
 }
   /*
    * For easier debugging in development mode, you can import the following file
