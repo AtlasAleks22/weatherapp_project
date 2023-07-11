@@ -30,6 +30,9 @@ pipeline {
         }
 
         stage('MegaLinter') {
+            options {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+            }
             agent {
                 docker {
                     image 'oxsecurity/megalinter:v7'
@@ -67,8 +70,8 @@ pipeline {
                         usernameVariable: 'DOCKER_USERNAME',
                         passwordVariable: 'DOCKER_PASSWORD')
                     ]) {
-                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh 'docker push bejenarudan/weather_app:v1.0'
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh 'docker push bejenarudan/weather_app:v1.0'
                     }
                 }
             }
