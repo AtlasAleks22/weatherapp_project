@@ -75,10 +75,5 @@ pipeline {
         }
     }
 
-    stage('Publish') {
-        steps {
-            push in docker registry - dockerhub
-        }
-    }
 }
     
