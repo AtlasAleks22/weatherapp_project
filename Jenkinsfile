@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker --version'
-                    sh 'docker build -t weatherapp .'
+                    sh 'docker build -t weather_app -f weatherapp_proj/Dockerfile .'
                 }
             }
         }
@@ -59,7 +59,7 @@ pipeline {
             }
         }
 
-        stage('Login and Push Docker Image') {
+        stage('Login and Push Image') {
             steps {
                 script {
                     withCredentials([
