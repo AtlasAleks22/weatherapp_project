@@ -49,7 +49,7 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Login, Build and Push Docker Image') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker_auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
