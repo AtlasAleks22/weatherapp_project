@@ -25,13 +25,8 @@ COPY package*.json ./
 RUN npm cache clean --force \
     && rm -rf node_modules \
     && npm install
-
-# Clone the repository into a new directory called "weatherapp_project"
-RUN apt-get install -y git \
-    && git clone https://github.com/AtlasAleks22/weatherapp_project.git weatherapp_project
-
-# Change the working directory to the project directory
-WORKDIR /usr/src/app/weatherapp_project/weatherapp_proj
+# Copy the rest of the Angular project to the working directory
+COPY . .
 
 # Expose the port used by the Angular application (default is 4200)
 EXPOSE 4200

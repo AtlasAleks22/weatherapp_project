@@ -29,7 +29,7 @@ RUN npm cache clean --force \
 COPY . .
 
 # Expose the port used by the Angular application (default is 4200)
-EXPOSE 9000
+EXPOSE 4200
 
 # Define the command to start the Angular application
 CMD [ "ng", "serve", "--host", "0.0.0.0" ]
