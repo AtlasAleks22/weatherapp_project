@@ -13,7 +13,7 @@ pipeline {
         stage('Update Token in environments.ts') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'jenkins-xrapidApi', variable: 'API_KEY')]) {
+                    withCredentials([string(credentialsId: 'jenkins_xrapidApi', variable: 'API_KEY')]) {
                         sh "sed -i \"s/api_key_placeholder/$API_KEY/g\" weatherapp_proj/src/app/environments/environment.ts"
                     }
                 }
@@ -23,9 +23,14 @@ pipeline {
         stage('Image build') {
             steps {
                 script {
-                    withCredentials
-                    sh 'docker --version'
-                    sh 'docker build -t weatherapp .'
+                    withCredentials([
+                        usernamePassword(credentialsId: 'docker_auth',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD')
+                    ]) {
+                        sh 'docker --version'
+                        sh 'docker build -t weatherapp .'
+                    }
                 }
             }
         }
@@ -51,7 +56,11 @@ pipeline {
         stage('Login, Build and Push Docker Image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker_auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    withCredentials([
+                        usernamePassword(credentialsId: 'docker_auth',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD')
+                    ]) {
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                         sh 'docker build -t bejenarudan/weather_app:v1.0 .'
                         sh 'docker push bejenarudan/weather_app:v1.0'
