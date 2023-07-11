@@ -24,7 +24,9 @@ pipeline {
             steps {
                 script {
                     sh 'docker --version'
-                    sh 'docker build -t weather_app -f weatherapp_proj/Dockerfile .'
+                    dir('weatherapp_proj') {
+                        sh 'docker build -t weather_app .'
+                    }
                 }
             }
         }

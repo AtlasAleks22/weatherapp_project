@@ -19,7 +19,10 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package*.json /usr/src/app/
+
+# Move to the working directory
+WORKDIR /usr/src/app
 
 # Install project dependencies
 RUN npm cache clean --force \
