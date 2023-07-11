@@ -38,8 +38,9 @@ pipeline {
             agent {
                 docker {
                     image 'oxsecurity/megalinter:v7'
-                    args "-u root -e VALIDATE_ALL_CODEBASE=true -v ${WORKSPACE}:/tmp/lint --entrypoint=''"
+                    args "-u root -e VALIDATE_ALL_CODEBASE=true -v ${WORKSPACE}:/tmp/lint -v ${WORKSPACE}/weatherapp_proj:/tmp/lint/weatherapp_proj --entrypoint=''"
                     reuseNode true
+                    customWorkspace '/tmp/lint'
                 }
             }
             steps {
@@ -47,7 +48,8 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'mega-linter.log,megalinter-reports/**/*', defaultExcludes: false, followSymlinks: false
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'mega-linter.log', defaultExcludes: false, followSymlinks: false
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'megalinter-reports/**/*.html', defaultExcludes: false, followSymlinks: false
                 }
             }
         }
