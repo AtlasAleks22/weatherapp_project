@@ -61,8 +61,9 @@ pipeline {
                         usernameVariable: 'DOCKER_USERNAME',
                         passwordVariable: 'DOCKER_PASSWORD')
                     ]) {
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker --version"
                         sh 'docker build -t bejenarudan/weather_app:v1.0 .'
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                         sh 'docker push bejenarudan/weather_app:v1.0'
                     }
                 }
