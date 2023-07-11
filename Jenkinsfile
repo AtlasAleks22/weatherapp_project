@@ -5,14 +5,12 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']],
-                 extensions: [], 
+                 extensions: [],
                  userRemoteConfigs: [[credentialsId: 'github_auth_id', url: 'https://github.com/AtlasAleks22/weatherapp_project.git']])
-
             }
         }
     }
 
-        
     stage('Update Token in environments.ts') {
         steps {
             script {
@@ -27,12 +25,12 @@ pipeline {
         steps {
             script {
                 withCredentials
-                sh "docker --version"
-                sh "docker build -t weatherapp ."
+                sh 'docker --version'
+                sh 'docker build -t weatherapp .'
             }
         }
-    }    
-    
+    }
+
     stage('MegaLinter') {
         agent {
             docker {
@@ -56,8 +54,8 @@ pipeline {
             script {
                 withCredentials([usernamePassword(credentialsId: 'docker_auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker build -t bejenarudan/weather_app:v1.0 ."
-                    sh "docker push bejenarudan/weather_app:v1.0"
+                    sh 'docker build -t bejenarudan/weather_app:v1.0 .'
+                    sh 'docker push bejenarudan/weather_app:v1.0'
                 }
             }
         }
@@ -74,6 +72,4 @@ pipeline {
             sh "curl -s https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Bucharest"
         }
     }
-
 }
-    
