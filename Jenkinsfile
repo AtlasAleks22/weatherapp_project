@@ -9,7 +9,6 @@ pipeline {
                  userRemoteConfigs: [[credentialsId: 'github_auth_id', url: 'https://github.com/AtlasAleks22/weatherapp_project.git']])
             }
         }
-    
 
         stage('Update Token in environments.ts') {
             steps {
