@@ -49,9 +49,15 @@ pipeline {
             }
         }
 
-        stage('Push to DockerHub') {
-            steps{
-                sh "docker push bejenarudan/weather_project:v1.0"
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker_auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker build -t bejenarudan/weather_app:v1.0 ."
+                        sh "docker push bejenarudan/weather_app:v1.0"
+                    }
+                }
             }
         }
 
@@ -72,5 +78,6 @@ pipeline {
                 push in docker registry - dockerhub
             }
         }
+    }
     }
 }
