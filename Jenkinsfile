@@ -24,7 +24,40 @@ pipeline {
 
         stage('Image build') {
             steps {
-                #build-uim imaginea
+                script {
+                    withCredentials
+                    sh "docker --version"
+                    sh "docker build -t weatherapp ."
+            }
+        }
+        
+        stage('MegaLinter') {
+            agent {
+                docker {
+                    image 'oxsecurity/megalinter:v7'
+                    args "-u root -e VALIDATE_ALL_CODEBASE=true -v ${WORKSPACE}:/tmp/lint --entrypoint=''"
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '/entrypoint.sh'
+            }
+            post {
+                always {
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'mega-linter.log,megalinter-reports/**/*', defaultExcludes: false, followSymlinks: false
+                }
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps{
+                sh "docker push bejenarudan/weather_project:v1.0"
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run -d -p 4200:4200 weatherapp'
             }
         }
 
