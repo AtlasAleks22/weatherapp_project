@@ -47,23 +47,6 @@ pipeline {
             }
         }
 
-        stage('Login, Build and Push Docker Image') {
-            steps {
-                script {
-                    withCredentials([
-                        usernamePassword(credentialsId: 'docker_auth',
-                        usernameVariable: 'DOCKER_USERNAME',
-                        passwordVariable: 'DOCKER_PASSWORD')
-                    ]) {
-                        sh 'docker --version'
-                        sh 'docker build -t bejenarudan/weather_app:v1.0 .'
-                    // sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    // sh 'docker push bejenarudan/weather_app:v1.0'
-                    }
-                }
-            }
-        }
-
         stage('Run Docker Container') {
             steps {
                 sh 'docker run -d -p 4200:4200 weatherapp'
@@ -73,6 +56,21 @@ pipeline {
         stage('Run Smoke Test') {
             steps {
                 sh "curl -s https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Bucharest"
+            }
+        }
+
+        stage('Login and Push Docker Image') {
+            steps {
+                script {
+                    withCredentials([
+                        usernamePassword(credentialsId: 'docker_auth',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD')
+                    ]) {
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh 'docker push bejenarudan/weather_app:v1.0'
+                    }
+                }
             }
         }
     }
