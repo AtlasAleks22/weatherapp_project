@@ -56,7 +56,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 4200:4200 weatherapp'
+                sh 'docker run -d -p 4200:4200 weather_app'
             }
         }
 
