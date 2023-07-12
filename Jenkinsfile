@@ -62,7 +62,7 @@ pipeline {
 
         stage('Run Smoke Test') {
             steps {
-                script {
+                script { 
                     withCredentials([string(credentialsId: 'jenkins_xrapidApi', variable: 'API_KEY')]) {
                         sh "curl -s 'https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Bucharest'"
                     }
