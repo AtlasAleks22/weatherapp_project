@@ -82,8 +82,8 @@ pipeline {
                     ]) 
                     {
                         sh "docker login -u ${DOCKER_USERNAME} -p \$DOCKER_PASSWORD"
-                        sh "docker tag weather_app ${DOCKER_USERNAME}/weather_app:v1.1"  // Replace v1.1 with the desired tag
-                        sh "docker push ${DOCKER_USERNAME}/weather_app:v1.1"  // Replace v1.1 with the desired tag
+                        sh "docker tag weather_app ${DOCKER_USERNAME}/weather_app:v1.0"
+                        sh "docker push ${DOCKER_USERNAME}/weather_app:v1.0"
                     }
                 }
             }
