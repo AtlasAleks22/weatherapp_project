@@ -62,9 +62,26 @@ pipeline {
 
         stage('Run Smoke Test') {
             steps {
-                script { 
+                script {
                     withCredentials([string(credentialsId: 'jenkins_xrapidApi', variable: 'API_KEY')]) {
-                        sh "curl -s 'https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Bucharest'"
+                        def weatherApiBaseUrl = 'https://openweather43.p.rapidapi.com/weather'
+                        def XRapidAPIHostHeaderValue = 'openweather43.p.rapidapi.com'
+                        sh "curl -s -H 'X-RapidAPI-Host: ${XRapidAPIHostHeaderValue}' -H 'X-RapidAPI-Key: ${API_KEY}' '${weatherApiBaseUrl}?q=Bucharest'"
+                    }
+                }
+            }
+        }
+
+        stage('Login and Push Image') {
+            steps {
+                script {
+                    withCredentials([
+                        usernamePassword(credentialsId: 'docker_auth',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD')
+                    ]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh 'docker push bejenarudan/weather_app:v1.0'
                     }
                 }
             }
