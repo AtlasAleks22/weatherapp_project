@@ -48,8 +48,8 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'mega-linter.log', defaultExcludes: false, followSymlinks: false, expire: 7
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'megalinter-reports/**/*.html', defaultExcludes: false, followSymlinks: false, expire: 7
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'mega-linter.log', defaultExcludes: false, followSymlinks: false
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'megalinter-reports/**/*.html', defaultExcludes: false, followSymlinks: false
                 }
             }
         }
