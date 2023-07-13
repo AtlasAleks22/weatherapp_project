@@ -34,6 +34,9 @@ RUN groupadd -r weatherApp && useradd -r -g weatherApp weatherApp
 # Change ownership to the non-root user
 RUN chown -R weatherApp:weatherApp /usr/src/app
 
+# Switch to the non-root user
+USER weatherApp
+
 # Set the SHELL option -o pipefail
 SHELL ["/bin/bash", "-o", "pipefail"]
 
