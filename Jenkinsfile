@@ -98,6 +98,7 @@ pipeline {
                     }
                     echo 'Application deployed successfully!'
                     echo 'Access the application at: http://localhost:4200'
+                }
             }
         }
     }
