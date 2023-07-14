@@ -79,11 +79,20 @@ pipeline {
                         usernamePassword(credentialsId: 'docker_auth',
                         usernameVariable: 'DOCKER_USERNAME',
                         passwordVariable: 'DOCKER_PASSWORD')
-                    ]) 
+                    ])
                     {
                         sh "docker login -u ${DOCKER_USERNAME} -p \$DOCKER_PASSWORD"
                         sh "docker tag weather_app ${DOCKER_USERNAME}/weather_app:v1.0"
                         sh "docker push ${DOCKER_USERNAME}/weather_app:v1.0"
+                    }
+                }
+            }
+        }
+        stage('Deploy with Docker Compose') {
+            steps {
+                script {
+                    dir('weatherapp_project') {
+                        sh 'docker-compose up -d'
                     }
                 }
             }
