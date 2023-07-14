@@ -91,8 +91,12 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    sh 'docker-compose -f ./weatherapp_proj/docker-compose.yml up -d'
+                    withCredentials([string(credentialsId: 'jenkins_xrapidApiKey', variable: 'API_KEY')]) {
+                        sh 'docker-compose -f ./weatherapp_proj/docker-compose.yml up -d -e XRapidAPIKeyHeaderValue=$API_KEY'
+                    }
                 }
+                echo 'Application deployed successfully!'
+                echo 'Access the application at: http://localhost:4200'
             }
         }
     }

@@ -8,5 +8,5 @@ services:
     ports:
       - 8888:4200
     environment:
-      - API_KEY=${API_KEY}
+      - XRapidAPIKeyHeaderValue=${XRapidAPIKeyHeaderValue}
     command: ng serve --host 0.0.0.0
