@@ -91,9 +91,7 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    dir('weatherapp_project') {
-                        sh 'docker-compose up -d'
-                    }
+                    sh 'docker-compose -f ./weatherapp_proj/docker-compose.yml up -d'
                 }
             }
         }
