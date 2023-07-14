@@ -91,7 +91,7 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'jenkins_xrapidApiKey', variable: 'API_KEY')]) {
+                    withCredentials([string(credentialsId: 'jenkins_xrapidApi', variable: 'API_KEY')]) {
                         sh 'docker-compose -f ./weatherapp_proj/docker-compose.yml up -d -e XRapidAPIKeyHeaderValue=$API_KEY'
                     }
                 }
