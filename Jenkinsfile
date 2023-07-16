@@ -67,6 +67,7 @@ pipeline {
                         def weatherApiBaseUrl = 'https://openweather43.p.rapidapi.com/weather'
                         def XRapidAPIHostHeaderValue = 'openweather43.p.rapidapi.com'
                         sh "curl -s -H 'X-RapidAPI-Host: ${XRapidAPIHostHeaderValue}' -H 'X-RapidAPI-Key: ${API_KEY}' '${weatherApiBaseUrl}?q=Bucharest'"
+                        sh "curl -s -H 'X-RapidAPI-Host: ${XRapidAPIHostHeaderValue}' -H 'X-RapidAPI-Key: ${API_KEY}' '${weatherApiBaseUrl}?q=Timisoara'"
                     }
                 }
             }
@@ -98,6 +99,14 @@ pipeline {
                     }
                     echo 'Application deployed successfully!'
                     echo 'Access the application at: http://localhost:4200'
+                }
+            }
+        }
+        stage('Create Validation Tag') {
+            steps {
+                script {
+                    sh "git tag -a validation-${env.GIT_COMMIT} -m 'Validation Tag'"
+                    sh "git push origin validation-${env.GIT_COMMIT}"
                 }
             }
         }
