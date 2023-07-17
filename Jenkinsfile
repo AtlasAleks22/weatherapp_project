@@ -104,16 +104,15 @@ pipeline {
         // }
         stage('Create Validation Tag') {
             steps {
-                script {
-                    scmGit(branches: [[name: '*/main']],
-                    extensions: [],
-                    userRemoteConfigs: [[credentialsId: 'github_auth_id', url: 'https://github.com/AtlasAleks22/weatherapp_project.git']])
+          
+                    withCredentials([gitUsernamePassword(credentialsId: 'my-credentials-id', gitToolName: 'git-tool')])
                     // withCredentials([usernamePassword(credentialsId: 'github_auth_id', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    {
                     sh "git tag validation-${env.GIT_COMMIT}"
                     sh 'git tag -n'
                     sh "git push origin validation-${env.GIT_COMMIT}"
+                    }
                 }
-            }
         }
     }
 }
