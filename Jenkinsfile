@@ -106,7 +106,7 @@ pipeline {
             steps {
                     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'new_github_access_validation', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
                     sh("git tag -a some_tag -m 'Jenkins'")
-                    sh("git push https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@weatherapp_project.git --tags")
+                    sh("git push https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}github.com/${env.GIT_USERNAME}/weatherapp_project.git --tags")
                     }
                 }
         }
