@@ -105,10 +105,11 @@ pipeline {
         stage('Create Validation Tag') {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'new_github_access_validation', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                    sh("git tag -l | xargs git tag -d")
-                    sh("git tag -a validation-${env.GIT_COMMIT} -m 'Validation tag ${env.GIT_COMMIT}'")
-                    sh("git tag -n")
-                    sh("git push https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com:${env.GIT_USERNAME}/weatherapp_project.git --tags")
+                    sh('git tag -l | xargs git tag -d')
+                    sh("git tag -a validation-\${env.GIT_COMMIT} -m 'Validation tag \${env.GIT_COMMIT}'")
+                    sh('git tag -n')
+                    sh('git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/weatherapp_project.git')
+                    sh('git push origin --tags')
                 }
             }
         }
