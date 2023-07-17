@@ -104,14 +104,11 @@ pipeline {
         // }
         stage('Create Validation Tag') {
             steps {
-                    withCredentials([gitUsernamePassword(credentialsId: 'github_auth_id', gitToolName: 'git-tool')])
-                    // withCredentials([usernamePassword(credentialsId: 'github_auth_id', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                    {
-                    sh "git tag validation-${env.GIT_COMMIT}"
-                    sh 'git tag -n'
-                    sh "git push origin validation-${env.GIT_COMMIT}"
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'new_github_access_validation', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+                    sh("git tag -a some_tag -m 'Jenkins'")
+                    sh("git push https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@weatherapp_project.git --tags")
                     }
-                    }
-            }
+                }
         }
     }
+}
