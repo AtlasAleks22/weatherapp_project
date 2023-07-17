@@ -105,9 +105,10 @@ pipeline {
         stage('Create Validation Tag') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github_auth_id', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        sh "git tag -a validation-${env.GIT_COMMIT} -m 'Validation Tag'"
-                        sh "echo https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/username/repo.git validation-${env.GIT_COMMIT}"
+                    // withCredentials([usernamePassword(credentialsId: 'github_auth_id', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh "git tag -a validation-${env.GIT_COMMIT}"
+                        sh "git tag -n"
+                        sh "git push origin validation-${env.GIT_COMMIT}"
                     }
                 }
             }
