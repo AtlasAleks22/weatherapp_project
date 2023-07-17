@@ -108,7 +108,7 @@ pipeline {
                     sh('git tag -l | xargs git tag -d')
                     sh("git tag -a validation-\${env.GIT_COMMIT} -m 'Validation tag \${env.GIT_COMMIT}'")
                     sh('git tag -n')
-                    sh('git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/weatherapp_project.git')
+                    sh('git remote set-url origin git@github.com:${GIT_USERNAME}/weatherapp_project.git')
                     sh('git push origin --tags')
                 }
             }
