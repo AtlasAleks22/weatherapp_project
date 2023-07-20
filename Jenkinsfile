@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+    stages {
         stage('Update Token in environments.ts') {
             steps {
                 script {
@@ -93,4 +94,5 @@ pipeline {
                 }
             }
         }
+    }
 }
