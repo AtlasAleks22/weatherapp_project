@@ -1,15 +1,6 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scmGit(branches: [[name: '*/main']],
-                 extensions: [],
-                 userRemoteConfigs: [[credentialsId: 'github_auth_id', url: 'https://github.com/AtlasAleks22/weatherapp_project.git']])
-            }
-        }
-
         stage('Update Token in environments.ts') {
             steps {
                 script {
