@@ -11,10 +11,10 @@ https://rapidapi.com/KirylBokiy/api/openweather43/ -> Api from RapidApi used for
 
 Dockerized Deployment: To ensure seamless deployment and portability, the Angular application is containerized using Docker, allowing it to run consistently across different environments.
 
-Git & GitHub Version Control: We used Git as the version control system to manage the project's source code, collaborating through GitHub, where the repository is hosted.
+Git & GitHub Version Control: Used Git as the version control system to manage the project's source code, collaborating through GitHub, where the repository is hosted.
 
 Jenkins Automation: Jenkins plays a pivotal role in automating the CI/CD pipeline. It builds the Angular application, performs code quality checks, and deploys the application using Docker.
 
-GitHub Validation Tags: We use GitHub validation tags to mark significant milestones in the codebase's history, signifying successful validations or deployments.
+GitHub Validation Tags: Made GitHub validation tags to mark significant milestones in the codebase's history, signifying successful validations or deployments.
 
 Future Development: The project's scope includes potential further development, such as integrating a database for weather history, using Kubernetes for container orchestration, and creating Selenium tests for robust UI validation.
