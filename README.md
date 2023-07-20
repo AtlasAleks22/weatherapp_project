@@ -18,3 +18,4 @@ Jenkins Automation: Jenkins plays a pivotal role in automating the CI/CD pipelin
 GitHub Validation Tags: Made GitHub validation tags to mark significant milestones in the codebase's history, signifying successful validations or deployments.
 
 Future Development: The project's scope includes potential further development, such as integrating a database for weather history, using Kubernetes for container orchestration, and creating Selenium tests for robust UI validation.
+.
